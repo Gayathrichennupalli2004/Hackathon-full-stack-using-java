@@ -1,0 +1,109 @@
+create database hackthon_task1;
+use hackthon_task1;
+
+CREATE TABLE regions (
+    region_id VARCHAR(2) PRIMARY KEY,
+    region_name VARCHAR(50)
+);
+INSERT INTO regions (region_id, region_name) VALUES ('EU', 'Europe');
+INSERT INTO regions (region_id, region_name) VALUES ('NA', 'North America');
+
+CREATE TABLE countries (
+    country_cd VARCHAR(3) PRIMARY KEY,
+    country_name VARCHAR(100),
+    region_id VARCHAR(2),
+    CONSTRAINT fk_countries_regions FOREIGN KEY (region_id) REFERENCES regions(region_id)
+);
+
+CREATE TABLE departments (
+    dept_id INT PRIMARY KEY,
+    dept_name VARCHAR(100)
+);
+
+
+CREATE TABLE job_types (
+    job_type_cd INT PRIMARY KEY,
+    job_type_name VARCHAR(100)
+);
+
+CREATE TABLE job_status_codes (
+    job_status_cd INT PRIMARY KEY,
+    status_desc VARCHAR(100)
+);
+
+CREATE TABLE appl_status_codes (
+    appl_status_cd INT PRIMARY KEY,
+    status_desc VARCHAR(100)
+);
+
+
+CREATE TABLE education_levels (
+    edu_level_cd INT PRIMARY KEY,
+    edu_level_name VARCHAR(100)
+);
+
+
+CREATE TABLE education_types (
+    edu_type_cd INT PRIMARY KEY,
+    edu_type_name VARCHAR(100)
+);
+
+
+CREATE TABLE jobs (
+    job_id INT PRIMARY KEY,
+    job_title VARCHAR(255),
+    job_desc VARCHAR(4000),
+    job_type_cd INT,
+    dept_id INT,
+    job_status_cd INT,
+    country_cd VARCHAR(3),
+    date_opened DATE,
+    date_closed DATE,
+    last_update_date TIMESTAMP,
+    last_updated_by VARCHAR(100),
+    CONSTRAINT fk_jobs_job_types FOREIGN KEY (job_type_cd) REFERENCES job_types(job_type_cd),
+    CONSTRAINT fk_jobs_departments FOREIGN KEY (dept_id) REFERENCES departments(dept_id),
+    CONSTRAINT fk_jobs_job_status_codes FOREIGN KEY (job_status_cd) REFERENCES job_status_codes(job_status_cd),
+    CONSTRAINT fk_jobs_countries FOREIGN KEY (country_cd) REFERENCES countries(country_cd)
+);
+
+CREATE TABLE applicants (
+    appl_id INT PRIMARY KEY,
+    first_name VARCHAR(100),
+    last_name VARCHAR(100),
+    email VARCHAR(255),
+    phone_num VARCHAR(20),
+    address VARCHAR(255),
+    city VARCHAR(100),
+    state VARCHAR(100),
+    zip INT,
+    country_cd VARCHAR(3),
+    appl_status_cd INT,
+    edu_level_cd INT,
+    edu_type_cd INT,
+    resume_file_name VARCHAR(255),
+    cover_letter_text VARCHAR(4000),
+    date_applied DATE,
+    employed_flag BOOLEAN,
+    current_employer_name VARCHAR(255),
+    years_of_exp INT,
+    last_update_date TIMESTAMP,
+    last_updated_by VARCHAR(100),
+    CONSTRAINT fk_applicants_countries FOREIGN KEY (country_cd) REFERENCES countries(country_cd),
+    CONSTRAINT fk_applicants_appl_status_codes FOREIGN KEY (appl_status_cd) REFERENCES appl_status_codes(appl_status_cd),
+    CONSTRAINT fk_applicants_education_levels FOREIGN KEY (edu_level_cd) REFERENCES education_levels(edu_level_cd),
+    CONSTRAINT fk_applicants_education_types FOREIGN KEY (edu_type_cd) REFERENCES education_types(edu_type_cd)
+);
+CREATE TABLE applicant_jobs (
+    appl_id INT,
+    job_id INT,
+    appl_status_cd INT,
+    date_applied DATE,
+    written_test_date DATE,
+    interview1_date DATE,
+    interview2_date DATE,
+    PRIMARY KEY (appl_id, job_id),
+    CONSTRAINT fk_applicant_jobs_applicants FOREIGN KEY (appl_id) REFERENCES applicants(appl_id),
+    CONSTRAINT fk_applicant_jobs_jobs FOREIGN KEY (job_id) REFERENCES jobs(job_id),
+    CONSTRAINT fk_applicant_jobs_appl_status_codes FOREIGN KEY (appl_status_cd) REFERENCES appl_status_codes(appl_status_cd)
+);
