@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply for Jobs</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="validation.js" defer></script>
+</head>
+<body>
+    <h1 class="header">Apply for Jobs</h1>
+    <form id="jobApplicationForm" action="/submit-application" method="post" enctype="multipart/form-data">
+        <label for="firstName" class="field-label">First Name *</label>
+        <input type="text" id="firstName" name="first_name" class="input-field" required>
+        
+        <label for="lastName" class="field-label">Last Name *</label>
+        <input type="text" id="lastName" name="last_name" class="input-field" required>
+        
+        <label for="email" class="field-label">Email *</label>
+        <input type="email" id="email" name="email" class="input-field" required>
+        
+        <label for="phone" class="field-label">Phone *</label>
+        <input type="text" id="phone" name="phone" class="input-field" required>
+        
+        <label for="address" class="field-label">Address *</label>
+        <input type="text" id="address" name="address" class="input-field" required>
+        
+        <label for="city" class="field-label">City *</label>
+        <input type="text" id="city" name="city" class="input-field" required>
+        
+        <label for="state" class="field-label">State *</label>
+        <input type="text" id="state" name="state" class="input-field" required>
+        
+        <label for="zip" class="field-label">ZIP Code *</label>
+        <input type="text" id="zip" name="zip" class="input-field" required>
+        
+        <label for="educationType" class="field-label">Education level *</label>
+        <select id="educationType" name="edu_type_cd" class="input-field" required>
+            <option value=""></option>
+            <option value="">primary</option>
+            <option value="">secondary</option>
+            <option value="">higher</option>
+            
+
+        </select>
+        
+        <label for="educationType" class="field-label">Education Type *</label>
+        <select id="educationType" name="edu_type_cd" class="input-field" required>
+            <option value=""></option>
+            <option value="">10th</option>
+            <option value="">inter</option>
+            <option value="">degree</option>
+            
+
+        </select>
+        
+        <label for="resume" class="field-label">Resume *</label>
+        <input type="file" id="resume" name="resume_file_name" class="input-field" required>
+        
+        <label for="coverLetter" class="field-label">Cover Letter (Optional)</label>
+        <textarea id="coverLetter" name="cover_letter_text" class="input-field"></textarea>
+        
+        <label for="employed" class="field-label">Are you employed?</label>
+        <input type="checkbox" id="employed" name="employed_flag" class="input-field">
+        
+        <div id="employmentDetails" style="display: none;">
+            <label for="currentEmployer" class="field-label">Current Employer</label>
+            <input type="text" id="currentEmployer" name="current_employer_name" class="input-field">
+            
+            <label for="yearsOfExperience" class="field-label">Years of Experience</label>
+            <input type="number" id="yearsOfExperience" name="years_of_exp" class="input-field">
+        </div>
+        
+        <label for="jobs" class="field-label">Jobs you want to apply for</label>
+        <select id="jobs" name="jobs[]" class="input-field" multiple>
+            
+        <label for="educationType" class="field-label">Education Type *</label>
+        <select id="educationType" name="edu_type_cd" class="input-field" required>
+            <option value="">hr</option>
+            <option value="">developer</option>
+            <option value="">manager</option>
+            
+
+        </select>
+        </select>
+        
+        <button type="submit" class="submit-button">Submit</button>
+    </form>
+</body>
+</html>
